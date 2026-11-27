@@ -28,20 +28,9 @@ void _setMeta(String name, String content) {
   el.callMethod<JSAny?>('setAttribute'.toJS, 'content'.toJS, content.toJS);
 }
 
-/// Push this screen's chrome into FlutterGo preview letterboxing + theme-color.
-void syncPreviewChrome(Color top, Color bottom) {
+/// Keep the browser theme color synchronized with the active screen.
+void syncBrowserChrome(Color top) {
   final topHex = _hex(top);
-  final bottomHex = _hex(bottom);
   _setMeta('theme-color', topHex);
-  _setMeta('od-chrome-top', topHex);
-  _setMeta('od-chrome-bottom', bottomHex);
-  try {
-    if (globalContext.has('FgSetChrome')) {
-      globalContext.callMethod<JSAny?>(
-        'FgSetChrome'.toJS,
-        topHex.toJS,
-        bottomHex.toJS,
-      );
-    }
-  } catch (_) {}
+  // Native system bars are handled by SystemChrome on supported platforms.
 }

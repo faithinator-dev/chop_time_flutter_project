@@ -1,5 +1,4 @@
-// Placeholder. `python3 tools/motionctl.py gen design/motion_brain.json
-// --dart lib/motion/motion_spec.g.dart` replaces this file with the app's plan.
+// Generated motion-plan configuration. Register planned interface elements here.
 // dart format off
 import 'motion_slot.dart';
 

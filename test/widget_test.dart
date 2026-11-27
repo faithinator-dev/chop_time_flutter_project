@@ -6,7 +6,7 @@ import 'package:recipe_studio/main.dart';
 
 void main() {
   testWidgets('the app starts', (tester) async {
-    await tester.pumpWidget(const ProviderScope(child: FlutterGoApp()));
+    await tester.pumpWidget(const ProviderScope(child: ChopTimeApp()));
     await tester.pump();
     expect(find.byType(Scaffold), findsWidgets);
   });

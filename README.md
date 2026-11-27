@@ -1,17 +1,25 @@
-# chop_time_flutter_project
+# ChopTime Flutter Project
 
-A new Flutter project.
+Flutter application built with Dart and Flutter.
 
-## Getting Started
+## Project structure
 
-This project is a starting point for a Flutter application.
+- `lib/main.dart` — application entry point and root widget.
+- `lib/router/` — application navigation.
+- `lib/theme/` — theme and platform system-chrome handling.
+- `lib/motion/` — reusable animation primitives, motion presets, and route transitions.
+- `test/` — widget and application tests.
 
-A few resources to get you started if this is your first Flutter project:
+## Development
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+Install the Flutter SDK, then run:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```sh
+flutter pub get
+flutter analyze
+flutter test
+```
+
+The current Dart package identifier is `recipe_studio`; the root widget is `ChopTimeApp`. The package identifier is intentionally unchanged in this cleanup to avoid breaking imports and platform configuration.
+
+See [motion system provenance](docs/MOTION_PROVENANCE.md) for project-history notes about the motion scaffolding.

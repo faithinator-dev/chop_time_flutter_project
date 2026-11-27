@@ -30,7 +30,7 @@ class AppChrome {
   static void apply({required Color top, required Color bottom}) {
     final style = styleFor(top: top, bottom: bottom);
     SystemChrome.setSystemUIOverlayStyle(style);
-    platform.syncPreviewChrome(top, bottom);
+    platform.syncBrowserChrome(top);
   }
 }
 

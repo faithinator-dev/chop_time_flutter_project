@@ -1,8 +1,5 @@
-// FlutterGo Motion System — tokens and page transitions.
-//
-// Feature code uses these tokens instead of hardcoded Duration(...) or
-// Curves.* values, so every screen in the app moves the same way.
-// See skills/fluttergo-motion-system/SKILL.md.
+// Application motion system: shared timing, curves, and page transitions.
+// Feature code uses these tokens so motion stays consistent across screens.
 
 import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 import 'package:flutter/material.dart';
@@ -17,7 +14,7 @@ export 'motion_preset.dart';
 enum MotionPersonality { calm, balanced, expressive }
 
 /// Legacy feel switch. New apps get their feel from [AppMotion.preset] (the
-/// host-picked catalogue style in motion_style.g.dart); setting this has no
+/// app-configured motion preset in motion_style.g.dart); setting this has no
 /// effect on the motion widgets any more.
 enum MotionStyle {
   /// Gentle fade with a short rise and a long soft landing (health, wellness,
@@ -55,8 +52,7 @@ abstract final class AppMotion {
   /// Legacy; see [MotionStyle]. The feel comes from [preset].
   static MotionStyle style = MotionStyle.soft;
 
-  /// This app's catalogue motion style, written by the FlutterGo host to
-  /// `motion_style.g.dart`. Every token below reads it.
+  /// The app-wide motion preset. Every motion token below reads this value.
   static MotionPreset preset = appMotionPreset;
 
   /// Optional in-app "Reduce motion" setting; OR-ed with the OS flag.
@@ -244,14 +240,13 @@ abstract final class AppMotion {
   // ── Reduced motion ─────────────────────────────────────────────────────
   static bool reduced(BuildContext context) =>
       appReduceMotion ||
-      previewReduceMotion ||
+      urlReduceMotion ||
       (MediaQuery.maybeDisableAnimationsOf(context) ?? false);
 
-  /// The FlutterGo web preview's "Reduce motion" switch loads the app with
-  /// `?reduceMotion=1`. Read once at start-up; always false on devices.
-  static final bool previewReduceMotion = _previewFlag();
+  /// A `?reduceMotion=1` URL parameter can enable reduced motion in web builds.
+  static final bool urlReduceMotion = _urlReduceMotionFlag();
 
-  static bool _previewFlag() {
+  static bool _urlReduceMotionFlag() {
     try {
       return Uri.base.queryParameters['reduceMotion'] == '1';
     } catch (_) {
@@ -289,7 +284,7 @@ abstract final class AppMotion {
 
   // ── go_router page helper ──────────────────────────────────────────────
   /// `GoRoute(pageBuilder: (c, s) => AppMotion.page(state: s, child: ...))`.
-  /// Use on every route with no `motion:` so it plays the host-picked style's
+  /// Use on every route with no `motion:` so it plays the configured style's
   /// [defaultPage]; pass `motion:` only for an intentional exception.
   static Page<void> page({
     required GoRouterState state,
