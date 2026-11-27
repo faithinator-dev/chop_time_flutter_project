@@ -1,7 +1,5 @@
-// Motion recipes — fluttergo-motion-brain v1.3.
-//
-// The premium moves from references/animation-catalog.md as ready widgets, so
-// "impressive" is a widget the agent drops in, not something it has to invent:
+// Reusable motion recipes for common interface interactions.
+// Compose these widgets to keep transitions expressive and consistent:
 //
 //   settle       MotionSettle          LEAD set down on the table (1.04 → 1 + fade)
 //   reveal_clip  MotionMaskReveal      mask opens, content counter-drifts
