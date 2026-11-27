@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-void syncBrowserChrome(Color top, Color bottom) {}
+void syncBrowserChrome(Color top) {}
