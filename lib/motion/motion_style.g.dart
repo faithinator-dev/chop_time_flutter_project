@@ -3,7 +3,7 @@
 import 'motion_preset.dart';
 
 const MotionPreset appMotionPreset = MotionPreset(
-  id: 'fgm-0000',
+  id: 'soft-default',
   name: 'Soft Default',
   mood: 'calm',
 );
