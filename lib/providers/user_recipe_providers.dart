@@ -53,7 +53,7 @@ class UserRecipesNotifier extends StateNotifier<AsyncValue<List<Recipe>>> {
 }
 
 final allRecipesProvider = Provider<List<Recipe>>((ref) {
-  final userRecipes = ref.watch(userRecipesProvider).valueOrNull ?? const [];
+  final userRecipes = ref.watch(userRecipesProvider).valueOrNull ?? const <Recipe>[];
   return [...RecipeCatalog.all, ...userRecipes];
 });
 
