@@ -103,6 +103,11 @@ class StudioShell extends StatelessWidget {
                       onTap: () => context.go('/discover'),
                     ),
                     _SectionChip(
+                      label: 'My Recipes',
+                      selected: false,
+                      onTap: () => context.go('/my-recipes'),
+                    ),
+                    _SectionChip(
                       label: 'Saved',
                       selected: tab == StudioTab.saved,
                       onTap: () => context.go('/saved'),

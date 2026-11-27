@@ -7,6 +7,8 @@ import '../features/discover/discover_screen.dart';
 import '../features/grocery/grocery_list_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/recipe/recipe_detail_screen.dart';
+import '../features/recipes/my_recipes_screen.dart';
+import '../features/recipes/recipe_editor_screen.dart';
 import '../features/saved/saved_screen.dart';
 import '../features/search/search_screen.dart';
 import '../features/splash/splash_screen.dart';
@@ -29,6 +31,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/discover',
         pageBuilder: (context, state) =>
             CupertinoPage(key: state.pageKey, child: const DiscoverScreen()),
+      ),
+      GoRoute(
+        path: '/my-recipes',
+        pageBuilder: (context, state) => CupertinoPage(
+          key: state.pageKey,
+          child: const MyRecipesScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/recipe-editor',
+        pageBuilder: (context, state) => CupertinoPage(
+          key: state.pageKey,
+          child: RecipeEditorScreen(
+            recipeId: state.uri.queryParameters['id'],
+          ),
+        ),
       ),
       GoRoute(
         path: '/saved',

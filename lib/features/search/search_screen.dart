@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../assets/app_assets.dart';
 import '../../data/recipe_catalog.dart';
+import '../../providers/user_recipe_providers.dart';
 import '../../motion/app_motion.dart';
 import '../../motion/app_pressable.dart';
 import '../../motion/app_reveal.dart';
@@ -57,7 +58,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    final results = RecipeCatalog.search(_query);
+    final allRecipes = ref.watch(allRecipesProvider);
+    final q = _query.trim().toLowerCase();
+    final results = q.isEmpty
+        ? allRecipes
+        : allRecipes.where((recipe) =>
+            recipe.title.toLowerCase().contains(q) ||
+            recipe.author.toLowerCase().contains(q) ||
+            recipe.categories.any((category) => category.toLowerCase().contains(q)) ||
+            recipe.blurb.toLowerCase().contains(q)).toList();
 
     return ChromeScope(
       top: colors.surface,

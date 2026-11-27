@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../data/recipe_catalog.dart';
+import '../../providers/user_recipe_providers.dart';
 import '../../motion/app_pressable.dart';
 import '../../motion/app_progress.dart';
 import '../../motion/app_reveal.dart';
@@ -41,7 +41,13 @@ class _CookModeScreenState extends ConsumerState<CookModeScreen>
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    final recipe = RecipeCatalog.byId(widget.recipeId);
+    final recipe = ref.watch(recipeByIdProvider(widget.recipeId));
+    if (recipe == null) {
+      return Scaffold(
+        backgroundColor: colors.background,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
     final stepChecks = ref.watch(cookChecksProvider(recipe.id));
     final stepProgress = recipe.steps.isEmpty
         ? 0.0

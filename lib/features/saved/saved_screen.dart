@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../assets/app_assets.dart';
-import '../../data/recipe_catalog.dart';
+import '../../providers/user_recipe_providers.dart';
 import '../../motion/app_pressable.dart';
 import '../../motion/app_reveal.dart';
 import '../../providers/recipe_providers.dart';
@@ -20,7 +20,7 @@ class SavedScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = AppColors.of(context);
     final savedIds = ref.watch(savedIdsProvider);
-    final savedRecipes = RecipeCatalog.all
+    final savedRecipes = ref.watch(allRecipesProvider)
         .where((r) => savedIds.contains(r.id))
         .toList();
 

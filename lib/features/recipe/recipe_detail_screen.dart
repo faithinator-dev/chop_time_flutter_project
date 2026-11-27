@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../assets/app_assets.dart';
-import '../../data/recipe_catalog.dart';
+import '../../providers/user_recipe_providers.dart';
 import '../../motion/app_pressable.dart';
 import '../../motion/app_reveal.dart';
 import '../../providers/recipe_providers.dart';
@@ -20,7 +20,13 @@ class RecipeDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = AppColors.of(context);
-    final recipe = RecipeCatalog.byId(recipeId);
+    final recipe = ref.watch(recipeByIdProvider(recipeId));
+    if (recipe == null) {
+      return Scaffold(
+        backgroundColor: colors.background,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
     final saved = ref.watch(savedIdsProvider).contains(recipe.id);
 
     return ChromeScope(
@@ -41,6 +47,12 @@ class RecipeDetailScreen extends ConsumerWidget {
                     onPressed: () => context.pop(),
                   ),
                   actions: [
+                    if (recipe.author == 'You')
+                      IconButton(
+                        tooltip: 'Edit recipe',
+                        onPressed: () => context.push('/recipe-editor?id=${recipe.id}'),
+                        icon: const Icon(Icons.edit_outlined),
+                      ),
                     IconButton(
                       onPressed: () {},
                       icon: SvgPicture.asset(
@@ -58,7 +70,17 @@ class RecipeDetailScreen extends ConsumerWidget {
                     background: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.asset(recipe.image, fit: BoxFit.cover),
+                        Image.asset(
+                          recipe.image,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) => ColoredBox(
+                            color: colors.surfaceContainer,
+                            child: Center(
+                              child: Icon(Icons.restaurant,
+                                  size: 56, color: colors.muted),
+                            ),
+                          ),
+                        ),
                         Positioned(
                           right: 16,
                           bottom: 16,

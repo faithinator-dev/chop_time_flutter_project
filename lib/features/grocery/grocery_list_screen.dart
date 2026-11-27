@@ -8,6 +8,7 @@ import '../../data/recipe_catalog.dart';
 import '../../motion/app_pressable.dart';
 import '../../motion/app_reveal.dart';
 import '../../providers/recipe_providers.dart';
+import '../../providers/user_recipe_providers.dart';
 import '../../shared/widgets/tinted_block.dart';
 import '../../theme/app_chrome.dart';
 import '../../theme/app_colors.dart';
@@ -26,6 +27,7 @@ class _GroceryListScreenState extends ConsumerState<GroceryListScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     final grocery = ref.watch(groceryProvider);
+    final allRecipes = ref.watch(allRecipesProvider);
     final entries = grocery.entries.toList();
 
     return ChromeScope(
@@ -90,7 +92,10 @@ class _GroceryListScreenState extends ConsumerState<GroceryListScreen> {
                 itemBuilder: (context, index) {
                   final recipeId = entries[index].key;
                   final ingredients = entries[index].value.toList();
-                  final recipe = RecipeCatalog.byId(recipeId);
+                  final recipe = allRecipes.firstWhere(
+                    (item) => item.id == recipeId,
+                    orElse: () => RecipeCatalog.byId(recipeId),
+                  );
                   final open = _expanded.contains(recipeId);
 
                   return AppReveal(
@@ -123,6 +128,12 @@ class _GroceryListScreenState extends ConsumerState<GroceryListScreen> {
                                         width: 52,
                                         height: 52,
                                         fit: BoxFit.cover,
+                                        errorBuilder: (_, _, _) => Container(
+                                          width: 52,
+                                          height: 52,
+                                          color: colors.surfaceContainer,
+                                          child: const Icon(Icons.restaurant),
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(width: 12),
