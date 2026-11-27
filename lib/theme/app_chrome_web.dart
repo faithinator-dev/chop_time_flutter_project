@@ -29,7 +29,7 @@ void _setMeta(String name, String content) {
 }
 
 /// Keep the browser theme color synchronized with the active screen.
-void syncBrowserChrome(Color top, Color bottom) {
+void syncBrowserChrome(Color top) {
   final topHex = _hex(top);
   _setMeta('theme-color', topHex);
   // Native system bars are handled by SystemChrome on supported platforms.
