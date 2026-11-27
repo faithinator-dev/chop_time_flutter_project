@@ -70,7 +70,17 @@ class RecipeDetailScreen extends ConsumerWidget {
                     background: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.asset(recipe.image, fit: BoxFit.cover),
+                        Image.asset(
+                          recipe.image,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) => ColoredBox(
+                            color: colors.surfaceContainer,
+                            child: Center(
+                              child: Icon(Icons.restaurant,
+                                  size: 56, color: colors.muted),
+                            ),
+                          ),
+                        ),
                         Positioned(
                           right: 16,
                           bottom: 16,
