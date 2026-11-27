@@ -1,10 +1,5 @@
-// FlutterGo motion presets — one of the 5,000 catalogue styles.
-//
-// The FlutterGo host picks a style for each new app from its idea and writes
-// it to `motion_style.g.dart`. Every motion widget in `lib/motion/` reads it:
-// durations, curves, how things enter, page transitions, press feedback,
-// loading and the success moment. Feature code never sets these by hand.
-// Catalogue: skills/fluttergo-motion-system/references/motion-styles.md
+// Motion presets define the app's shared animation personality: timing,
+// easing, entrances, transitions, press feedback, loading, and completion.
 
 /// Overall speed. Scales every duration token.
 enum MotionTempo { snappy, brisk, measured, relaxed, cinematic }
@@ -76,7 +71,7 @@ class MotionPreset {
     this.onboarding = MotionOnboarding.editorial,
   });
 
-  /// Catalogue id, e.g. `fgm-0417`.
+  /// Stable identifier for this motion preset.
   final String id;
   final String name;
 
