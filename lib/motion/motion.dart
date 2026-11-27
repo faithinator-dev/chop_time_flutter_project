@@ -1,8 +1,5 @@
-/// FlutterGo motion library. Import this one file, relatively like every
-/// import inside `lib/` — e.g. `import '../motion/motion.dart';` from a
-/// feature folder (`lib/features/<name>/`).
-///
-/// Catalogue and usage rules: skills/fluttergo-motion-system/references/widget-library.md
+/// Shared motion library for the application. Import this file from
+/// feature folders to use the app's motion primitives and presets.
 library;
 
 export 'app_count_up.dart';
