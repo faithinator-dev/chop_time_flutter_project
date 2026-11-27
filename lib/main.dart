@@ -13,11 +13,11 @@ void main() {
   AppMotion.style = MotionStyle.soft;
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(AppTheme.systemUi);
-  runApp(const ProviderScope(child: FlutterGoApp()));
+  runApp(const ProviderScope(child: ChopTimeApp()));
 }
 
-class FlutterGoApp extends ConsumerWidget {
-  const FlutterGoApp({super.key});
+class ChopTimeApp extends ConsumerWidget {
+  const ChopTimeApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
