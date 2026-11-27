@@ -371,7 +371,7 @@ class _MotionSlotState extends State<MotionSlot> {
     assert(
       spec != null,
       'MotionSlot("${widget.id}") is not registered in the motion plan. '
-      'Add the element to motion_specs.g.dart before using this slot.'',
+      'Add the element to motion_spec.g.dart before using this slot.'',
     );
     if (spec == null) return widget.child;
     assert(() {
