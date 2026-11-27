@@ -14,7 +14,7 @@ export 'motion_preset.dart';
 enum MotionPersonality { calm, balanced, expressive }
 
 /// Legacy feel switch. New apps get their feel from [AppMotion.preset] (the
-/// host-picked catalogue style in motion_style.g.dart); setting this has no
+/// app-configured motion preset in motion_style.g.dart); setting this has no
 /// effect on the motion widgets any more.
 enum MotionStyle {
   /// Gentle fade with a short rise and a long soft landing (health, wellness,
@@ -244,9 +244,9 @@ abstract final class AppMotion {
       (MediaQuery.maybeDisableAnimationsOf(context) ?? false);
 
   /// A `?reduceMotion=1` URL parameter can enable reduced motion in web builds.
-  static final bool previewReduceMotion = _previewFlag();
+  static final bool urlReduceMotion = _urlReduceMotionFlag();
 
-  static bool _previewFlag() {
+  static bool _urlReduceMotionFlag() {
     try {
       return Uri.base.queryParameters['reduceMotion'] == '1';
     } catch (_) {
