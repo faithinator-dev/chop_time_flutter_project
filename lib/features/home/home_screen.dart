@@ -6,6 +6,7 @@ import '../../data/recipe_catalog.dart';
 import '../../motion/app_pressable.dart';
 import '../../motion/app_reveal.dart';
 import '../../providers/recipe_providers.dart';
+import '../../providers/user_recipe_providers.dart';
 import '../../shared/widgets/recipe_tile.dart';
 import '../../shared/widgets/save_bookmark_button.dart';
 import '../../shared/widgets/studio_shell.dart';
@@ -20,11 +21,14 @@ class HomeScreen extends ConsumerWidget {
     final colors = AppColors.of(context);
     final featured = ref.watch(recipeOfTheDayProvider);
     final saved = ref.watch(savedIdsProvider).contains(featured.id);
-    final weeknight = RecipeCatalog.all
+    final allRecipes = ref.watch(allRecipesProvider);
+    final weeknight = allRecipes
         .where((r) => r.minutes <= 35 && r.id != featured.id)
         .take(6)
         .toList();
-    final desserts = RecipeCatalog.byCategory('Dessert');
+    final desserts = allRecipes
+        .where((r) => r.categories.any((c) => c.toLowerCase() == 'dessert'))
+        .toList();
 
     return StudioShell(
       tab: StudioTab.forYou,
