@@ -1,23 +1,7 @@
-// MotionSlot — fluttergo-motion-brain v1.3 runtime contract.
-// Drop into lib/motion/ next to app_motion.dart, together with the generated
-// motion_spec.g.dart (`python3 tools/motionctl.py gen design/motion_brain.json
-// --dart lib/motion/motion_spec.g.dart`), and export it from motion.dart.
-//
-// Every element the brain planned is wrapped once in feature code:
-//
-//   MotionSlot('today.task_row', onTap: () => open(task), child: TaskRow(task))
-//   MotionSlot('today.day_count', value: done, child: Text('$done of $total'))
-//   MotionSlot('feed.post_photo', heroTag: 'photo-${post.id}', child: Photo(post))
-//
-// The slot reads the element's plan (role, motion, token, replay, reduced) and
-// applies it with the existing lib/motion widgets — so the code cannot drift
-// from design/motion_brain.json, and `motionctl inventory` can prove every
-// planned element exists. An id that is not in the plan fails fast in debug.
-//
-// SIGNATURE, GRAPHIC and FEEDBACK slots are markers: their motion lives in the
-// widget they wrap (a direction kit, AppStatusButton, AppConfetti…). ANCHOR
-// slots never move. Timing always comes from AppMotion, so the host's motion
-// style (motion_style.g.dart) still sets the feel.
+// MotionSlot connects named interface elements to the app's motion plan.
+// Keep the plan in motion_spec.g.dart and export this file through motion.dart.
+// Each slot applies the existing motion widgets while respecting reduced
+// motion, replay rules, and the element's semantic role.
 
 import 'dart:async';
 
@@ -137,7 +121,7 @@ enum MotionReduced { none, settled, crossfade, keepFeedback, staticCue }
 
 enum MotionReplay { oncePerSession, oncePerVisit, everyTime }
 
-/// One planned element, generated from design/motion_brain.json.
+/// One element in the application's motion plan.
 @immutable
 class MotionSpec {
   const MotionSpec({
@@ -196,7 +180,7 @@ class MotionSpec {
       (trigger == MotionTrigger.enter || trigger == MotionTrigger.insert) &&
       (role == MotionRole.lead || role == MotionRole.follower);
 
-  /// The planned duration from AppMotion, or null for "use the host style".
+  /// The planned duration, or null to use the active app preset.
   Duration? get baseDuration => switch (duration) {
     MotionDur.instant => AppMotion.instant,
     MotionDur.xs => AppMotion.xs,
@@ -257,7 +241,7 @@ class MotionSlot extends StatefulWidget {
     this.format,
   });
 
-  /// `<screen>.<element>` id from design/motion_brain.json.
+  /// `<screen>.<element>` identifier from the motion plan.
   final String id;
   final Widget child;
 
@@ -386,8 +370,8 @@ class _MotionSlotState extends State<MotionSlot> {
     final spec = motionSpecs[widget.id];
     assert(
       spec != null,
-      'MotionSlot("${widget.id}") is not planned in design/motion_brain.json. '
-      'Add the element (edit mode) and run `motionctl gen`.',
+      'MotionSlot("${widget.id}") is not registered in the motion plan. '
+      'Add the element to motion_specs.g.dart before using this slot.'',
     );
     if (spec == null) return widget.child;
     assert(() {
