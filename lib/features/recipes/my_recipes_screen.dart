@@ -27,8 +27,16 @@ class MyRecipesScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('My Recipes', style: Theme.of(context).textTheme.headlineSmall),
-                    Text('Your personal kitchen collection', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colors.muted)),
+                    Text(
+                      'My Recipes',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    Text(
+                      'Your personal kitchen collection',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: colors.muted),
+                    ),
                   ],
                 ),
               ),
@@ -43,27 +51,33 @@ class MyRecipesScreen extends ConsumerWidget {
             ],
           ),
         ),
-        Expanded(child: recipesState.isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : recipes.isEmpty
+        Expanded(
+          child: recipesState.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : recipes.isEmpty
               ? Center(
                   child: Padding(
                     padding: const EdgeInsets.all(28),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.menu_book_outlined,
-                            size: 54, color: colors.primary),
+                        Icon(
+                          Icons.menu_book_outlined,
+                          size: 54,
+                          color: colors.primary,
+                        ),
                         const SizedBox(height: 16),
-                        Text('Your kitchen starts here',
-                            style: Theme.of(context).textTheme.titleLarge),
+                        Text(
+                          'Your kitchen starts here',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           'Create your first recipe and keep your own cooking notes in one place.',
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme.bodyMedium
-                              ?.copyWith(color: colors.muted),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(color: colors.muted),
                         ),
                         const SizedBox(height: 18),
                         FilledButton.icon(
@@ -81,9 +95,9 @@ class MyRecipesScreen extends ConsumerWidget {
                     AppReveal(
                       child: Text(
                         '${recipes.length} recipe${recipes.length == 1 ? '' : 's'} made by you',
-                        style: Theme.of(context)
-                            .textTheme.bodyMedium
-                            ?.copyWith(color: colors.muted),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.copyWith(color: colors.muted),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -101,8 +115,10 @@ class MyRecipesScreen extends ConsumerWidget {
                               color: colors.danger,
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Icon(Icons.delete_outline,
-                                color: colors.onPrimary),
+                            child: Icon(
+                              Icons.delete_outline,
+                              color: colors.onPrimary,
+                            ),
                           ),
                           confirmDismiss: (_) async =>
                               await showDialog<bool>(
@@ -110,7 +126,8 @@ class MyRecipesScreen extends ConsumerWidget {
                                 builder: (dialogContext) => AlertDialog(
                                   title: const Text('Delete recipe?'),
                                   content: Text(
-                                      '“${recipe.title}” will be removed from My Recipes.'),
+                                    '“${recipe.title}” will be removed from My Recipes.',
+                                  ),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
@@ -138,6 +155,8 @@ class MyRecipesScreen extends ConsumerWidget {
                     }),
                   ],
                 ),
+        ),
+      ],
     );
   }
 }
