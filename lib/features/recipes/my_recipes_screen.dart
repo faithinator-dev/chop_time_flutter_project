@@ -16,24 +16,31 @@ class MyRecipesScreen extends ConsumerWidget {
     final recipesState = ref.watch(userRecipesProvider);
     final recipes = recipesState.valueOrNull ?? const [];
 
-    return Scaffold(
-      backgroundColor: colors.background,
-      appBar: AppBar(
-        title: const Text('My Recipes'),
-        actions: [
-          IconButton(
-            tooltip: 'Create recipe',
-            onPressed: () => context.push('/recipe-editor'),
-            icon: const Icon(Icons.add),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('My Recipes', style: Theme.of(context).textTheme.headlineSmall),
+                    Text('Your personal kitchen collection', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colors.muted)),
+                  ],
+                ),
+              ),
+              FilledButton.icon(
+                onPressed: () => context.push('/recipe-editor'),
+                icon: const Icon(Icons.add),
+                label: const Text('Add'),
+              ),
+            ],
           ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.push('/recipe-editor'),
-        icon: const Icon(Icons.add),
-        label: const Text('New recipe'),
-      ),
-      body: recipesState.isLoading
+        ),
+        Expanded(child: recipesState.isLoading
           ? const Center(child: CircularProgressIndicator())
           : recipes.isEmpty
               ? Center(
@@ -66,7 +73,7 @@ class MyRecipesScreen extends ConsumerWidget {
                   ),
                 )
               : ListView(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 100),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
                   children: [
                     AppReveal(
                       child: Text(
