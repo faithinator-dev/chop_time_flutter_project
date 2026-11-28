@@ -12,6 +12,7 @@ import '../features/recipes/recipe_editor_screen.dart';
 import '../features/saved/saved_screen.dart';
 import '../features/search/search_screen.dart';
 import '../features/splash/splash_screen.dart';
+import '../shared/widgets/studio_shell.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -36,7 +37,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/my-recipes',
         pageBuilder: (context, state) => CupertinoPage(
           key: state.pageKey,
-          child: const MyRecipesScreen(),
+          child: StudioShell(tab: StudioTab.myRecipes, child: const MyRecipesScreen()),
         ),
       ),
       GoRoute(

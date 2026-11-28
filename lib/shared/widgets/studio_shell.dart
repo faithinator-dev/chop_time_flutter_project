@@ -8,7 +8,7 @@ import '../../motion/app_pressable.dart';
 import '../../theme/app_chrome.dart';
 import '../../theme/app_colors.dart';
 
-enum StudioTab { forYou, discover, saved }
+enum StudioTab { forYou, discover, myRecipes, saved }
 
 class StudioShell extends StatelessWidget {
   const StudioShell({super.key, required this.tab, required this.child});
@@ -104,7 +104,7 @@ class StudioShell extends StatelessWidget {
                     ),
                     _SectionChip(
                       label: 'My Recipes',
-                      selected: false,
+                      selected: tab == StudioTab.myRecipes,
                       onTap: () => context.go('/my-recipes'),
                     ),
                     _SectionChip(
