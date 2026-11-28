@@ -32,10 +32,13 @@ class MyRecipesScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              FilledButton.icon(
-                onPressed: () => context.push('/recipe-editor'),
-                icon: const Icon(Icons.add),
-                label: const Text('Add'),
+              SizedBox(
+                width: 96,
+                child: FilledButton.icon(
+                  onPressed: () => context.push('/recipe-editor'),
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add'),
+                ),
               ),
             ],
           ),
